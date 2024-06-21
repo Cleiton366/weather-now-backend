@@ -11,6 +11,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(router);
+
+app.use(router.city);
+app.use(router.user);
 
 export { app };

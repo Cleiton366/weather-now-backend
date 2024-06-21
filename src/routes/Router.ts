@@ -1,19 +1,9 @@
-import { Router } from 'express';
-import { UserController } from '../controllers/UserController';
-import { CityController } from '../controllers/CityController';
+import user from './user/UserRouter';
+import city from './city/CityRouter';
 
-const router = Router();
-const userController = new UserController();
-const cityController = new CityController();
-
-router.get('/user/:id', userController.getUser);
-router.post('/user', userController.createUser);
-router.delete('/user/:id', userController.deleteUser);
-
-router.post('/city/weather', cityController.getCitiesWeather);
-router.get('/city/:id', cityController.getCity);
-router.get('/city/user/:id', cityController.getCities);
-router.post('/city', cityController.createCity);
-router.delete('/city/:id', cityController.deleteCity);
+const router = {
+    user : user,
+    city : city
+}
 
 export default router;
