@@ -5,23 +5,21 @@ const userRepository = new UserRepository();
 
 export class UserController {
 
-  async getUser(req: Request, res: Response) {
+  async getUser(id : string) {
     try {
-      const { id } = req.params;
       const user = await userRepository.getUser(id);
-      res.status(200).json(user);
+      return user;
     } catch (error : any) {
-      res.status(500).json({ message: error.message });
+      return null;
     }
   }
 
-  async createUser(req: Request, res: Response) {
+  async createUser(profile : any) {
     try {
-      const data = req.body;
-      const user = await userRepository.createUser(data);
-      res.status(201).json(user);
+      const user = await userRepository.createUser(profile);
+      return user;
     } catch (error : any) {
-      res.status(500).json({ message: error.message });
+      return null;
     }
   }
 

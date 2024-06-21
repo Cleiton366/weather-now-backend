@@ -14,5 +14,6 @@ app.use(express.json());
 
 app.use(router.city);
 app.use(router.user);
+app.use(router.auth);
 
 export { app };
