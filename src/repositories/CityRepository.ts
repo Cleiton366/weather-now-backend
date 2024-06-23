@@ -1,9 +1,11 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { WeatherService } from '../services/WeatherService';
 import { CityDTO } from '../interfaces/CityDTO';
+import { GeoCodingService } from '../services/GeoCodingService';
 
 const prisma = new PrismaClient();
 const weatherService = new WeatherService();
+const geoCodingService = new GeoCodingService();
 type City = Prisma.CityGetPayload<null>;
 
 export class CityReposity {
@@ -42,7 +44,16 @@ export class CityReposity {
 
   async createCity(data: City) : Promise<City | null> {
     try {
-      const city = await prisma.city.create({data});
+      const cityData = await geoCodingService.getGeoCodingData(data.name);
+      const city = await prisma.city.create({
+        data: {
+          name: data.name,
+          country: cityData[0].country,
+          lat: cityData[0].latitude,
+          lon: cityData[0].longitude,
+          userId: data.userId
+        }
+      });
       return city;
     } catch (error) {
       console.log(error);
