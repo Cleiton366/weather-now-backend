@@ -5,16 +5,18 @@ CREATE TABLE "User" (
     "name" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "profilePicture" TEXT,
+    "unit" TEXT DEFAULT 'metric',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "City" (
-    "id" TEXT NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "lat" DOUBLE PRECISION NOT NULL,
     "lon" DOUBLE PRECISION NOT NULL,
     "name" TEXT NOT NULL,
+    "country" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "City_pkey" PRIMARY KEY ("id")
