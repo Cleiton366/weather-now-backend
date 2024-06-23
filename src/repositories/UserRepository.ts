@@ -29,8 +29,8 @@ export class UserRepository {
         data: {
           name: 'London',
           country: 'United Kingdom',
-          lat: 51.5074,
-          lon: 0.1278,
+          lat: 51.507218,
+          lon: -0.127586,
           userId: user.id
         }
       });
