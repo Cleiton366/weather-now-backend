@@ -25,6 +25,15 @@ export class UserRepository {
   async createUser(data: User): Promise<User | null> {
     try {
       const user = await prisma.user.create({ data });
+      await prisma.city.create({
+        data: {
+          name: 'London',
+          country: 'United Kingdom',
+          lat: 51.5074,
+          lon: 0.1278,
+          userId: user.id
+        }
+      });
       return user;
     } catch (error) {
       console.log(error);
