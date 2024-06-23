@@ -32,4 +32,15 @@ export class UserController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  async updateUserUnit(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { unit } = req.body;
+      const user = await userRepository.updateUserUnit(id, unit);
+      res.status(200).json(user);
+    } catch (error : any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }

@@ -34,9 +34,42 @@ export class UserRepository {
 
   async deleteUser(id: string): Promise<void> {
     try {
+      await prisma.city.deleteMany({ where: { userId: id } });
       await prisma.user.delete({ where: { id } });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async updateUserUnit(id: string, unit: string): Promise<User | null> {
+    try {
+      const user = await prisma.user.update({
+        where: { id },
+        data: {
+          unit
+        }
+      });
+      return user;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async getUserUnit(id: string): Promise<string | null> {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id },
+        select: {
+          unit: true
+        }
+      });
+      if(user) {
+        return user.unit;
+      } else return null;
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
 }
