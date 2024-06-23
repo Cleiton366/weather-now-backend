@@ -8,6 +8,7 @@ export interface CityDTO {
   lat: number;
   lon: number;
   name: string;
+  country: string;
   userId: string;
   weather: WeatherData;
 }
