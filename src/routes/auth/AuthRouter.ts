@@ -50,7 +50,7 @@ passport.use(new GoogleStrategy({
 
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
-    cb(null, { id: user.id, username: user.username, name: user.name });
+    cb(null, { id: user.id, name: user.name });
   });
 });
 
@@ -67,8 +67,9 @@ auth.use(session({
   saveUninitialized: false,
   store: new SQLiteStore()
 }));
+auth.use(passport.session());
 auth.use(passport.authenticate('session'));
-
+auth.use(passport.initialize());
 auth.get('/auth/google', passport.authenticate('google'));
 
 auth.get('/oauth2/redirect/google',
